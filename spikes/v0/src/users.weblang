@@ -1,0 +1,94 @@
+feature Users {
+  props {
+    endpoint: string = '/api/users';
+  }
+
+  html {
+  	<section class="users">
+  		<button class="reload" type="button">Reload users</button>
+  		<ul class="list" aria-label="Users"></ul>
+  		<p class="status" role="status" aria-live="polite"></p>
+  	</section>
+  }
+
+  css {
+  	.users {
+  		display: grid;
+  		gap: 0.75rem;
+  		max-inline-size: 26rem;
+  	}
+  	.reload {
+  		font: inherit;
+  		padding: 0.45rem 0.7rem;
+  		border-radius: 0.5rem;
+  		border: 1px solid #355070;
+  		background: #eaf4f4;
+  	}
+  	.list {
+  		margin: 0;
+  		padding-inline-start: 1.1rem;
+  	}
+  	.status {
+  		min-block-size: 1.2em;
+  		margin: 0;
+  	}
+  }
+
+  ts {
+  	const list = root.querySelector('.list')
+  	const status = root.querySelector('.status')
+  	const reload = root.querySelector('.reload')
+
+  	if (!list || !status || !reload) {
+  		emit('users:error', { reason: 'missing-dom' })
+  		return
+  	}
+
+  	let controller = null
+
+  	async function loadUsers(signal) {
+  		status.textContent = 'Loading users...'
+
+  		const response = await fetch(String(props.endpoint), { signal })
+  		if (!response.ok) {
+  			throw new Error('Request failed')
+  		}
+
+  		const users = await response.json()
+  		list.textContent = ''
+
+  		for (const user of users) {
+  			const li = document.createElement('li')
+  			li.textContent = String(user.name || 'Unknown user')
+  			list.appendChild(li)
+  		}
+
+  		status.textContent = `Loaded ${users.length} users`
+  		emit('users:loaded', { total: users.length })
+  	}
+
+  	async function run() {
+  		if (controller) {
+  			controller.abort()
+  		}
+
+  		controller = new AbortController()
+
+  		try {
+  			await loadUsers(controller.signal)
+  		} catch (error) {
+  			if (error && error.name === 'AbortError') {
+  				return
+  			}
+
+  			status.textContent = 'Failed to load users'
+  			emit('users:error', { reason: 'fetch-failed' })
+  		}
+  	}
+
+  	reload.addEventListener('click', run)
+  	cleanup(() => controller && controller.abort())
+
+  	run()
+  }
+}
