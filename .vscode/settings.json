@@ -1,0 +1,8 @@
+{
+	"oxc.fmt.configPath": ".oxfmtrc.json",
+	"editor.defaultFormatter": "oxc.oxc-vscode",
+	"[weblang]": {
+		"editor.defaultFormatter": "weblang.weblang-vscode"
+	},
+	"editor.formatOnSave": true
+}

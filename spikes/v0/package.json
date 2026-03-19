@@ -1,0 +1,14 @@
+{
+	"name": "@weblang/spike-v0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"compile": "node compiler/index.mjs",
+		"validate": "node scripts/validate-spike.mjs",
+		"test": "node --test tests/*.test.mjs",
+		"spike": "pnpm run compile && pnpm run validate && pnpm run test"
+	},
+	"devDependencies": {
+		"jsdom": "^24.1.0"
+	}
+}

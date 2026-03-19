@@ -1,0 +1,99 @@
+feature Tabs {
+  html {
+  	<section class="tabs" aria-label="Demo tabs">
+  		<div role="tablist" aria-label="Example">
+  			<button
+  				id="tab-a"
+  				role="tab"
+  				aria-selected="true"
+  				aria-controls="panel-a"
+  				data-tab="a"
+  				type="button">
+  				Overview
+  			</button>
+  			<button
+  				id="tab-b"
+  				role="tab"
+  				aria-selected="false"
+  				aria-controls="panel-b"
+  				data-tab="b"
+  				type="button"
+  				tabindex="-1">
+  				Details
+  			</button>
+  		</div>
+  		<section id="panel-a" role="tabpanel" aria-labelledby="tab-a" data-panel="a">
+  			Panel A
+  		</section>
+  		<section id="panel-b" role="tabpanel" aria-labelledby="tab-b" data-panel="b" hidden>
+  			Panel B
+  		</section>
+  	</section>
+  }
+
+  css {
+  	.tabs {
+  		display: grid;
+  		gap: 0.75rem;
+  	}
+
+  	[role='tablist'] {
+  		display: flex;
+  		gap: 0.5rem;
+  	}
+
+  	[role='tab'] {
+  		font: inherit;
+  		padding: 0.4rem 0.7rem;
+  		border-radius: 0.5rem;
+  		border: 1px solid #536878;
+  		background: #fff4dd;
+  	}
+
+  	[role='tab'][aria-selected='true'] {
+  		background: #e3f2fd;
+  	}
+  }
+
+  ts {
+  	const tabs = Array.from(root.querySelectorAll('[role="tab"]'))
+  	const panels = Array.from(root.querySelectorAll('[role="tabpanel"]'))
+
+  	function activate(tabId) {
+  		tabs.forEach(tab => {
+  			const isActive = tab.getAttribute('data-tab') === tabId
+  			tab.setAttribute('aria-selected', String(isActive))
+  			tab.tabIndex = isActive ? 0 : -1
+  		})
+
+  		panels.forEach(panel => {
+  			panel.hidden = panel.getAttribute('data-panel') !== tabId
+  		})
+
+  		emit('tabs:changed', { tabId })
+  	}
+
+  	root.addEventListener('click', event => {
+  		const target = event.target instanceof Element ? event.target.closest('[role="tab"]') : null
+  		if (!target) return
+  		activate(target.getAttribute('data-tab'))
+  	})
+
+  	root.addEventListener('keydown', event => {
+  		if (!(event.target instanceof Element)) return
+  		const current = event.target.closest('[role="tab"]')
+  		if (!current) return
+
+  		const i = tabs.indexOf(current)
+  		if (i < 0) return
+
+  		if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+  			event.preventDefault()
+  			const dir = event.key === 'ArrowRight' ? 1 : -1
+  			const next = tabs[(i + dir + tabs.length) % tabs.length]
+  			next.focus()
+  			activate(next.getAttribute('data-tab'))
+  		}
+  	})
+  }
+}

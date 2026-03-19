@@ -1,0 +1,64 @@
+{
+	"name": "weblang-vscode",
+	"displayName": "Weblang",
+	"version": "0.0.1",
+	"description": "Basic syntax highlighting for .weblang files.",
+	"categories": [
+		"Programming Languages"
+	],
+	"keywords": [
+		"css",
+		"html",
+		"javascript",
+		"typescript",
+		"weblang"
+	],
+	"license": "UNLICENSED",
+	"repository": {
+		"type": "git",
+		"url": "https://example.com/weblang"
+	},
+	"publisher": "weblang",
+	"main": "./extension.js",
+	"scripts": {
+		"check": "node -e \"for (const f of ['package.json','language-configuration.json','syntaxes/weblang.tmLanguage.json']) JSON.parse(require('fs').readFileSync(f, 'utf8')); console.log('JSON OK')\""
+	},
+	"contributes": {
+		"languages": [
+			{
+				"id": "weblang",
+				"aliases": [
+					"Weblang",
+					"weblang"
+				],
+				"extensions": [
+					".weblang"
+				],
+				"icon": {
+					"light": "./icons/weblang.svg",
+					"dark": "./icons/weblang.svg"
+				},
+				"configuration": "./language-configuration.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "weblang",
+				"scopeName": "source.weblang",
+				"path": "./syntaxes/weblang.tmLanguage.json",
+				"embeddedLanguages": {
+					"meta.embedded.block.html": "html",
+					"meta.embedded.block.css": "css",
+					"meta.embedded.block.js": "javascript",
+					"meta.embedded.block.ts": "typescript"
+				}
+			}
+		]
+	},
+	"activationEvents": [
+		"onLanguage:weblang"
+	],
+	"engines": {
+		"vscode": "^1.85.0"
+	}
+}

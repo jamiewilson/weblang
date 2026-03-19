@@ -1,0 +1,12 @@
+{
+	"name": "weblang-workspace",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"vscode:check": "pnpm --prefix packages/vscode run check",
+		"vscode:package": "pnpm --prefix packages/vscode exec vsce package"
+	},
+	"devDependencies": {
+		"oxfmt": "^0.41.0"
+	}
+}

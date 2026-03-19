@@ -1,0 +1,186 @@
+{
+	"name": "Weblang",
+	"scopeName": "source.weblang",
+	"fileTypes": ["weblang"],
+	"patterns": [
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#feature"
+		},
+		{
+			"include": "#html-block"
+		},
+		{
+			"include": "#css-block"
+		},
+		{
+			"include": "#props-block"
+		},
+		{
+			"include": "#ts-block"
+		},
+		{
+			"include": "#js-block"
+		},
+		{
+			"include": "#keywords"
+		}
+	],
+	"repository": {
+		"comments": {
+			"patterns": [
+				{
+					"name": "comment.line.double-slash.weblang",
+					"begin": "//",
+					"end": "$"
+				},
+				{
+					"name": "comment.block.weblang",
+					"begin": "/\\*",
+					"end": "\\*/"
+				}
+			]
+		},
+		"feature": {
+			"patterns": [
+				{
+					"name": "meta.feature.declaration.weblang",
+					"match": "\\b(feature)\\s+([A-Za-z_][A-Za-z0-9_-]*)",
+					"captures": {
+						"1": {
+							"name": "keyword.control.feature.weblang"
+						},
+						"2": {
+							"name": "entity.name.type.feature.weblang"
+						}
+					}
+				}
+			]
+		},
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.control.weblang",
+					"match": "\\b(feature|props|root|cleanup|emit|mount|unmount|adopt|render|instantiate)\\b"
+				}
+			]
+		},
+		"html-block": {
+			"begin": "(^\\s*)(html)(\\s*\\{)",
+			"beginCaptures": {
+				"2": {
+					"name": "keyword.control.block.weblang"
+				},
+				"3": {
+					"name": "punctuation.section.block.begin.weblang"
+				}
+			},
+			"end": "(^\\s*)(\\})",
+			"endCaptures": {
+				"2": {
+					"name": "punctuation.section.block.end.weblang"
+				}
+			},
+			"contentName": "meta.embedded.block.html",
+			"patterns": [
+				{
+					"include": "text.html.basic"
+				}
+			]
+		},
+		"css-block": {
+			"begin": "(^\\s*)(css)(\\s*\\{)",
+			"beginCaptures": {
+				"2": {
+					"name": "keyword.control.block.weblang"
+				},
+				"3": {
+					"name": "punctuation.section.block.begin.weblang"
+				}
+			},
+			"end": "(^\\s*)(\\})",
+			"endCaptures": {
+				"2": {
+					"name": "punctuation.section.block.end.weblang"
+				}
+			},
+			"contentName": "meta.embedded.block.css",
+			"patterns": [
+				{
+					"include": "source.css"
+				}
+			]
+		},
+		"props-block": {
+			"begin": "(^\\s*)(props)(\\s*\\{)",
+			"beginCaptures": {
+				"2": {
+					"name": "keyword.control.block.weblang"
+				},
+				"3": {
+					"name": "punctuation.section.block.begin.weblang"
+				}
+			},
+			"end": "(^\\s*)(\\})",
+			"endCaptures": {
+				"2": {
+					"name": "punctuation.section.block.end.weblang"
+				}
+			},
+			"contentName": "meta.embedded.block.ts",
+			"patterns": [
+				{
+					"include": "source.ts"
+				}
+			]
+		},
+		"ts-block": {
+			"begin": "(^\\s*)(ts)(\\s*\\{)",
+			"beginCaptures": {
+				"2": {
+					"name": "keyword.control.block.weblang"
+				},
+				"3": {
+					"name": "punctuation.section.block.begin.weblang"
+				}
+			},
+			"end": "(^\\s*)(\\})",
+			"endCaptures": {
+				"2": {
+					"name": "punctuation.section.block.end.weblang"
+				}
+			},
+			"contentName": "meta.embedded.block.ts",
+			"patterns": [
+				{
+					"include": "source.ts"
+				}
+			]
+		},
+		"js-block": {
+			"begin": "(^\\s*)(js)(\\s*\\{)",
+			"beginCaptures": {
+				"2": {
+					"name": "keyword.control.block.weblang"
+				},
+				"3": {
+					"name": "punctuation.section.block.begin.weblang"
+				}
+			},
+			"end": "(^\\s*)(\\})",
+			"endCaptures": {
+				"2": {
+					"name": "punctuation.section.block.end.weblang"
+				}
+			},
+			"contentName": "meta.embedded.block.js",
+			"patterns": [
+				{
+					"include": "source.js"
+				}
+			]
+		}
+	}
+}

@@ -1,0 +1,9 @@
+_reference
+node_modules
+.pnpm-store
+dist
+.data
+.cache
+.output
+.env
+.env.local

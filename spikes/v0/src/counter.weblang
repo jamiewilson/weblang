@@ -1,0 +1,47 @@
+feature Counter {
+  html {
+  	<section class="counter">
+  		<button class="btn" type="button" aria-controls="counter-value">Increment</button>
+  		<p id="counter-value" class="status" aria-live="polite">
+  			Count:
+  			<span class="n">0</span>
+  		</p>
+  	</section>
+  }
+
+  css {
+  	.counter {
+  		display: grid;
+  		gap: 0.5rem;
+  		max-inline-size: 18rem;
+  	}
+  	.btn {
+  		font: inherit;
+  		padding: 0.5rem 0.75rem;
+  		border: 1px solid #355070;
+  		border-radius: 0.5rem;
+  		background: #f8f3e8;
+  	}
+  	.status {
+  		margin: 0;
+  		font-weight: 600;
+  	}
+  }
+
+  ts {
+  	let n = 0
+  	const button = root.querySelector('.btn')
+  	const out = root.querySelector('.n')
+
+  	if (!button || !out) {
+  		emit('counter:error', { reason: 'missing-dom' })
+  		return
+  	}
+
+  	button.addEventListener('click', () => {
+  		n += 1
+  		out.textContent = String(n)
+  		emit('counter:changed', { value: n })
+  	})
+  }
+}

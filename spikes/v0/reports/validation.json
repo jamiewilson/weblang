@@ -1,0 +1,107 @@
+{
+  "timestamp": "2026-03-19T00:46:33.598Z",
+  "summary": {
+    "files": 3,
+    "features": 3,
+    "emitted": 3,
+    "errors": 0,
+    "warnings": 0
+  },
+  "overall": {
+    "passed": true,
+    "total": 6,
+    "failed": 0,
+    "failedIds": []
+  },
+  "requirements": [
+    {
+      "id": "MP-1",
+      "description": "Locality and clarity of behavior: three canonical features authored as single feature units.",
+      "pass": true,
+      "evidence": {
+        "features": 3
+      }
+    },
+    {
+      "id": "MP-2",
+      "description": "Type/grammar safety: compilation reports no error-level diagnostics.",
+      "pass": true,
+      "evidence": {
+        "errorCount": 0
+      }
+    },
+    {
+      "id": "MP-3",
+      "description": "Testing-first integration: spike has runnable runtime tests.",
+      "pass": true,
+      "evidence": {
+        "testFile": "spikes/v0/tests/spike.runtime.test.mjs"
+      }
+    },
+    {
+      "id": "MP-4",
+      "description": "Accessible-by-default baseline: a11y diagnostics pass without error-level violations.",
+      "pass": true,
+      "evidence": {
+        "a11yDiagnosticCodes": []
+      }
+    },
+    {
+      "id": "MP-5",
+      "description": "Standard output artifacts: html/css/js emit for Counter, Tabs, Users.",
+      "pass": true,
+      "evidence": {
+        "artifacts": [
+          {
+            "name": "counter.html",
+            "exists": true
+          },
+          {
+            "name": "counter.css",
+            "exists": true
+          },
+          {
+            "name": "counter.js",
+            "exists": true
+          },
+          {
+            "name": "tabs.html",
+            "exists": true
+          },
+          {
+            "name": "tabs.css",
+            "exists": true
+          },
+          {
+            "name": "tabs.js",
+            "exists": true
+          },
+          {
+            "name": "users.html",
+            "exists": true
+          },
+          {
+            "name": "users.css",
+            "exists": true
+          },
+          {
+            "name": "users.js",
+            "exists": true
+          },
+          {
+            "name": "diagnostics.json",
+            "exists": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "MP-6",
+      "description": "Deterministic diagnostics schema: machine-readable diagnostics are emitted.",
+      "pass": true,
+      "evidence": {
+        "diagnosticsCount": 0
+      }
+    }
+  ]
+}
